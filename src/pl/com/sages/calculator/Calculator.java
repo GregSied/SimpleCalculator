@@ -14,7 +14,7 @@ public class Calculator implements Calculable {
 		StringTokenizer st = new StringTokenizer(formula, "+-*/", true);
 
 		int liczba;
-		Character operator = null;
+		CalculateOperator operator = null;
 		
 		while (st.hasMoreElements()) {
 			
@@ -28,42 +28,45 @@ public class Calculator implements Calculable {
 					wynik = liczba;
 				}
 			} else {
-				operator = resolveOperator(operator, nextToken);
+				operator = resolveOperator(nextToken);
 			}
 		}
 		return this.wynik;
 	}
 
-	private Character resolveOperator(Character operator, String nextToken) {
+	private CalculateOperator resolveOperator(String nextToken) {
+		
+		CalculateOperator operator = null;
+		
 		switch (nextToken) {
 		case "+":
-			operator = '+';
+			operator = CalculateOperator.SUM;
 			break;
 		case "-":
-			operator = '-';
+			operator = CalculateOperator.SUBSTRACT;
 			break;
 		case "*":
-			operator = '*';
+			operator = CalculateOperator.MULTIPLY;
 			break;
 		case "/":
-			operator = '/';
+			operator = CalculateOperator.DIVIDE;
 			break;
 		}
 		return operator;
 	}
 
-	private void count(Character operator, int liczba) {
+	private void count(CalculateOperator operator, int liczba) {
 		switch (operator) {
-		case '+':
+		case SUM:
 			this.wynik += liczba;
 			break;
-		case '-':
+		case SUBSTRACT:
 			this.wynik -= liczba;
 			break;
-		case '*':
+		case MULTIPLY:
 			this.wynik *= liczba;
 			break;
-		case '/':
+		case DIVIDE:
 			this.wynik /= liczba;
 			break;
 		}
