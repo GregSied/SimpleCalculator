@@ -15,22 +15,22 @@ public class Calculator implements Calculable {
 
 		int liczba;
 		Character operator = null;
+		
 		while (st.hasMoreElements()) {
+			
 			String nextToken = st.nextToken();
+			
 			if (NumberUtils.isCreatable(nextToken)) {
 				liczba = NumberUtils.toInt(nextToken);
-
 				if (operator != null) {
 					count(operator, liczba);
 				} else {
 					wynik = liczba;
 				}
-
 			} else {
 				operator = resolveOperator(operator, nextToken);
 			}
 		}
-
 		return this.wynik;
 	}
 
